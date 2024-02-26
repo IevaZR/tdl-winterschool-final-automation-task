@@ -4,6 +4,7 @@ import menuPage from "../page-objects/menu.page.js";
 
 Given('I am on the home page', async function() {
     await homePage.open()
+    await homePage.logoELement.waitForDisplayed()
 })
 
 Given('I have not logged in', async function() {
