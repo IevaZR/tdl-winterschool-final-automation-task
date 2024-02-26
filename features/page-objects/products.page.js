@@ -2,7 +2,7 @@ import { Page } from "./page.js";
 
 class ProductsPage extends Page {
     get firstProductLink() {
-        return $("(//*[@class='product_img_link'])[1]");
+        return $("(//ul[contains(@class, 'product_list')]//a[contains(@title, 'View')])[1]");
     }
 }
 
