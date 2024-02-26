@@ -3,6 +3,7 @@ Feature: Unregistered user checkout
 # TODO check size selectors -> can it be optimized
 # TODO check all files - what can be optimized
 
+@checkout
   Scenario: Page asks to login or create an account before letting unregistered user finish the order
     Given I am on the home page
     And I have not logged in
