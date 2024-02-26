@@ -16,7 +16,9 @@ class HomePage extends Page {
 
     get searchIcon() { return $("button[name='submit_search']") }
 
-    get cartElementQuantity() {return $(".shopping_cart .ajax_cart_quantity")}
+    get cartElementQuantity() { return $(".shopping_cart .ajax_cart_quantity") }
+
+    get cartElement() { return $("a[title='View my shopping cart']") }
 }
 
 export default new HomePage();
