@@ -1,9 +1,10 @@
-import { When, Then } from "@wdio/cucumber-framework";
+import { Given, When, Then } from "@wdio/cucumber-framework";
 import productsPage from "../page-objects/products.page.js";
 import productPage from "../page-objects/product.page.js";
 import productAddedPopupPage from "../page-objects/product-added-popup.page.js";
 import shoppingCartSummaryPage from "../page-objects/shopping-cart-summary.page.js";
 import authenticationPage from "../page-objects/authentication.page.js";
+import homePage from "../page-objects/home.page.js";
 
 When("I click on the first product", async function () {
     await productsPage.firstProductLink.click()
@@ -11,6 +12,7 @@ When("I click on the first product", async function () {
 
 When("I select a size that is in stock", async function () {
 
+    
     await productPage.sizeFieldDropDown.click()
     await productPage.getAvailableSize()
     // await browser.pause(5000)
@@ -51,4 +53,14 @@ Then("I am not able to finish order without creating account or logging in", asy
         const link = await listItem.$('a')
         await expect(link).not.toExist()
     }
+})
+
+Given("There are no products in the Cart", async function(){
+    expect(homePage.cartElementQuantity).not.toBeDisplayed
+})
+
+Then("The product counter on Cart increases by one", async function(){
+    await homePage.cartElementQuantity.waitForDisplayed()
+    const numberOfProducts = await homePage.cartElementQuantity.getText()
+    expect(numberOfProducts).toBe('1')
 })
