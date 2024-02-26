@@ -9,6 +9,11 @@
     "@wdio/spec-reporter": "^8.32.2"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js",
+    "allure": "allure serve",
+    "tag": "wdio run ./wdio.conf.js --cucumberOpts.tags"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.27.0"
   }
 }
