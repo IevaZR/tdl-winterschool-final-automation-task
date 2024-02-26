@@ -6,6 +6,8 @@ class HomePage extends Page {
         await browser.navigateTo("http://www.automationpractice.pl/");
     }
 
+    get logoELement() {return $("#header_logo")}
+
     get signInLink() {
         return $("a[title='Log in to your customer account']");
     }
