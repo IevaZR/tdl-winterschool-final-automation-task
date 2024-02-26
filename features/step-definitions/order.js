@@ -14,7 +14,7 @@ When("I click on the first product", async function () {
 
 When("I select a size that is in stock", async function () {
 
-    
+
     await productPage.sizeFieldDropDown.click()
     await productPage.getAvailableSize()
     // await browser.pause(5000)
@@ -57,38 +57,45 @@ Then("I am not able to finish order without creating account or logging in", asy
     }
 })
 
-Given("There are no products in the Cart", async function(){
+Given("There are no products in the Cart", async function () {
     expect(homePage.cartElementQuantity).not.toBeDisplayed()
 })
 
-Then("The product counter on Cart increases by one", async function(){
+Then("The product counter on Cart increases by one", async function () {
     await homePage.cartElementQuantity.waitForDisplayed()
     const numberOfProducts = await homePage.cartElementQuantity.getText()
     expect(numberOfProducts).toBe('1')
 })
 
-Given("There is one product in the Cart", async function(){
-    const menuItemToClick = await menuPage.selectMenuItem("Women")
-    await menuItemToClick.click()
-    await productsPage.firstProductLink.click()
-    await productPage.sizeFieldDropDown.click()
-    await productPage.getAvailableSize()
-    await productPage.addToCartBtn.click()
-    await productAddedPopupPage.closePopupBtn.waitForDisplayed()
-    await productAddedPopupPage.closePopupBtn.click()
+Given("There is one product in the Cart", async function () {
     await homePage.cartElementQuantity.waitForDisplayed()
     const numberOfProducts = await homePage.cartElementQuantity.getText()
-    expect(numberOfProducts).toBe('1')
+    if (numberOfProducts == '1') {
+        return true
+    } else {
+        const menuItemToClick = await menuPage.selectMenuItem("Women")
+        await menuItemToClick.click()
+        await productsPage.firstProductLink.click()
+        await productPage.sizeFieldDropDown.click()
+        await productPage.getAvailableSize()
+        await productPage.addToCartBtn.click()
+        await productAddedPopupPage.closePopupBtn.waitForDisplayed()
+        await productAddedPopupPage.closePopupBtn.click()
+        await homePage.cartElementQuantity.waitForDisplayed()
+        const numberOfProducts = await homePage.cartElementQuantity.getText()
+        expect(numberOfProducts).toBe('1')
+    }
+
 })
 
-When("I click on the Cart icon", async function() {
+When("I click on the Cart icon", async function () {
     await homePage.cartElement.moveTo()
 })
 
-When("I click on the 'x' to remove the item from Cart", async function() {
+When("I click on the 'x' to remove the item from Cart", async function () {
     await cartDropdownPage.productRemoveBtn.click()
 })
 
-Then("There are no products left in the cart", async function() {
+Then("There are no products left in the cart", async function () {
     expect(homePage.cartElementQuantity).not.toBeDisplayed()
 })
