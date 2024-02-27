@@ -31,7 +31,7 @@ Then("I get only results with product names and product colors containing {strin
     for (const item of receivedProducts) {
         let productName = await item.getText()
         productName = productName.toLowerCase()
-        const allWordsFound = searchedWords.every(word => productNameText.includes(word));
+        const allWordsFound = searchedWords.every(word => productName.includes(word));
         if (!allWordsFound) {
             let colorMatchFound = false;
             const productColorLinks = await item.$$('.color-list-container a')
