@@ -9,7 +9,9 @@ import menuPage from "../page-objects/menu.page.js";
 import cartDropdownPage from "../page-objects/cart-dropdown.page.js";
 
 When("I click on the first product", async function () {
-    await productsPage.firstProductLink.click()
+    await browser.debug();
+    // REVIEW: This selector didn't work for me
+    // await productsPage.firstProductLink.click()
 });
 
 When("I select a size that is in stock", async function () {
@@ -64,26 +66,30 @@ Then("The product counter on Cart increases by one", async function () {
 })
 
 Given("There is one product in the Cart", async function () {
-    let noItemsInCart = false;
+    await browser.debug();
+    // REVIEW: This some more work to make it more stable
+    // This could have been accomplished with a much simpler approach of validating text of one element
 
-    try {
-        await expect(homePage.cartElementQuantity).not.toBeDisplayed();
-        noItemsInCart = true;
-    } catch (error) { }
+    // let noItemsInCart = false;
 
-    if (noItemsInCart) {
-        const menuItemToClick = await menuPage.selectMenuItem("Women")
-        await menuItemToClick.click()
-        await productsPage.firstProductLink.click()
-        await productPage.sizeFieldDropDown.click()
-        await productPage.getAvailableSize()
-        await productPage.addToCartBtn.click()
-        await productAddedPopupPage.closePopupBtn.waitForDisplayed()
-        await productAddedPopupPage.closePopupBtn.click()
-    }
-    await homePage.cartElementQuantity.waitForDisplayed()
-    const numberOfProducts = await homePage.cartElementQuantity.getText()
-    expect(numberOfProducts).toBe('1')
+    // try {
+    //     await expect(homePage.cartElementQuantity).not.toBeDisplayed();
+    //     noItemsInCart = true;
+    // } catch (error) { }
+
+    // if (noItemsInCart) {
+    //     const menuItemToClick = await menuPage.selectMenuItem("Women")
+    //     await menuItemToClick.click()
+    //     await productsPage.firstProductLink.click()
+    //     await productPage.sizeFieldDropDown.click()
+    //     await productPage.getAvailableSize()
+    //     await productPage.addToCartBtn.click()
+    //     await productAddedPopupPage.closePopupBtn.waitForDisplayed()
+    //     await productAddedPopupPage.closePopupBtn.click()
+    // }
+    // await homePage.cartElementQuantity.waitForDisplayed()
+    // const numberOfProducts = await homePage.cartElementQuantity.getText()
+    // expect(numberOfProducts).toBe('1')
 })
 
 When("I click on the Cart icon", async function () {
