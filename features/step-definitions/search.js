@@ -12,6 +12,9 @@ When("I click on search icon", async function () {
 
 Then("I get only results with product names containing {string}", async function (string) {
     const receivedProducts = await searchResultsPage.searchResultProducts
+    // REVIEW: Be careful with fetching all elements without waiting.
+    // This list would be empy if page loaded slower.
+    // The "$$() function doesn't wait anything.
     const searchedWords = string.toLowerCase().split(' ')
     for (const item of receivedProducts) {
         let productName = await item.getText()
