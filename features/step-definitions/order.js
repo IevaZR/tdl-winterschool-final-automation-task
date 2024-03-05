@@ -67,7 +67,7 @@ Then("The product counter on Cart increases by one", async function () {
 
 Given("There is one product in the Cart", async function () {
     await browser.debug();
-    // REVIEW: This some more work to make it more stable
+    // REVIEW: This needs some more work to make it more stable
     // This could have been accomplished with a much simpler approach of validating text of one element
 
     // let noItemsInCart = false;
